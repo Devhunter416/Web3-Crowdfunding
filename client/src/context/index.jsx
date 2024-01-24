@@ -3,7 +3,6 @@ import React, { useContext, createContext } from 'react';
 
 import { useAddress, useContract, useConnect, useContractWrite} from '@thirdweb-dev/react';
 import { ethers } from 'ethers';
-import { EditionMetadataWithOwnerOutputSchema } from '@thirdweb-dev/sdk';
 //createContext is used to create a context. We will use this context to store the data.
 const StateContext = createContext();
 
@@ -58,33 +57,37 @@ export const StateContextProvider = ({ children }) => {
 
   const getUserCampaigns = async () => {
     const allCampaigns = await getCampaigns();
-
+    //filtering the campaigns based on the owner's address
     const filteredCampaigns = allCampaigns.filter((campaign) => campaign.owner === address);
 
     return filteredCampaigns;
   }
 
-//   const donate = async (pId, amount) => {
-//     const data = await contract.call('donateToCampaign', [pId], { value: ethers.utils.parseEther(amount)});
+  const donate = async (pId, amount) => {
+    // call the donateToCampaign function from the contract, pid = campaign id, amount = amount to donate
+    //ethers.utils is the library that we use to convert the amount
+    const data = await contract.call('donateToCampaign', [pId], { value: ethers.utils.parseEther(amount)});
 
-//     return data;
-//   }
+    return data;
+  }
 
-//   const getDonations = async (pId) => {
-//     const donations = await contract.call('getDonators', [pId]);
-//     const numberOfDonations = donations[0].length;
+  const getDonations = async (pId) => {
+    //call the getDonaters function from the contract, pid = campaign id
+    const donations = await contract.call('getDonaters', [pId]);
+    const numberOfDonations = donations[0].length;
 
-//     const parsedDonations = [];
+    const parsedDonations = [];
 
-//     for(let i = 0; i < numberOfDonations; i++) {
-//       parsedDonations.push({
-//         donator: donations[0][i],
-//         donation: ethers.utils.formatEther(donations[1][i].toString())
-//       })
-//     }
+    for(let i = 0; i < numberOfDonations; i++) {
+      //we are only passing the data that we need to the UI
+      parsedDonations.push({
+        donator: donations[0][i],
+        donation: ethers.utils.formatEther(donations[1][i].toString())
+      })
+    }
 
-//     return parsedDonations;
-//   }
+    return parsedDonations;
+  }
 
 
   return (
@@ -96,8 +99,8 @@ export const StateContextProvider = ({ children }) => {
         createCampaign: publishCampaign,
         getCampaigns,
         getUserCampaigns,
-        //donate,
-        //getDonations
+        donate,
+        getDonations
       }}
     >
       {children}
