@@ -11,7 +11,7 @@ const CampaignDetails = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const {contract, address } = useStateContext();
+  const { donate, getDonations, contract, address } = useStateContext();
 
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState('');
@@ -87,7 +87,16 @@ const CampaignDetails = () => {
           <div>
             <h4 className="font-epilogue font-semibold text-[18px] text-white uppercase">Donators</h4>
 
-              
+              <div className="mt-[20px] flex flex-col gap-4">
+                {donators.length > 0 ? donators.map((item, index) => (
+                  <div key={`${item.donator}-${index}`} className="flex justify-between items-center gap-4">
+                    <p className="font-epilogue font-normal text-[16px] text-[#b2b3bd] leading-[26px] break-ll">{index + 1}. {item.donator}</p>
+                    <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] break-ll">{item.donation}</p>
+                  </div>
+                )) : (
+                  <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] text-justify">No donators yet. Be the first one!</p>
+                )}
+              </div>
           </div>
         </div>
 
@@ -112,6 +121,13 @@ const CampaignDetails = () => {
                 <h4 className="font-epilogue font-semibold text-[14px] leading-[22px] text-white">Back it because you believe in it.</h4>
                 <p className="mt-[20px] font-epilogue font-normal leading-[22px] text-[#808191]">Support the project for no reward, just because it speaks to you.</p>
               </div>
+
+              <CustomButton 
+                btnType="button"
+                title="Fund Campaign"
+                styles="w-full bg-[#8c6dfd]"
+                handleClick={handleDonate}
+              />
             </div>
           </div>
         </div>
