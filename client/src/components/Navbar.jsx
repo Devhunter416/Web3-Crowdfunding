@@ -24,6 +24,7 @@ const Navbar = () => {
       </div>
 
       <div className="sm:flex hidden flex-row justify-end gap-4">
+        {/* use info from address if present, allow create campaign else connect button */}
         {address ?<CustomButton 
           btnType="button"
           title={'Create a campaign'}

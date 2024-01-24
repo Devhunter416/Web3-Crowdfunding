@@ -1,5 +1,5 @@
 import React from 'react'
-
+//custom component for a small box to be displayed 3 times
 const CountBox = ({ title, value }) => {
   return (
     <div className="flex flex-col items-center w-[150px]">

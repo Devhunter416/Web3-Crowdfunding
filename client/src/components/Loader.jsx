@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { loader } from '../assets';
-
+//small loader component to be displayed when transaction is in progress
 const Loader = () => {
   return (
     <div className="fixed inset-0 z-10 h-screen bg-[rgba(0,0,0,0.7)] flex items-center justify-center flex-col">

@@ -6,6 +6,10 @@ import { CountBox, CustomButton, Loader } from '../components';
 import { calculateBarPercentage, daysLeft } from '../utils';
 import { thirdweb } from '../assets';
 
+/**
+ * Renders the details of a campaign.
+ * @returns {JSX.Element} The CampaignDetails component.
+ */
 const CampaignDetails = () => {
   //as sending campaign as state when onclick on fundcard is triggered
   const { state } = useLocation();
@@ -19,8 +23,11 @@ const CampaignDetails = () => {
 
   const remainingDays = daysLeft(state.deadline);
 
+  /**
+   * Fetches the list of donators for the campaign.
+   */
   const fetchDonators = async () => {
-    //send the id of the campaign to retrive from the blockchain
+    //send the id of the campaign to retrieve from the blockchain
     const data = await getDonations(state.pId);
 
     setDonators(data);
@@ -30,7 +37,9 @@ const CampaignDetails = () => {
     if(contract) fetchDonators();
   }, [contract, address])
 
-  //handle donating to a campaign
+  /**
+   * Handles the donation to a campaign.
+   */
   const handleDonate = async () => {
     setIsLoading(true);
 

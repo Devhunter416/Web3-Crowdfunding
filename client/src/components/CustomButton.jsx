@@ -1,5 +1,6 @@
 import React from 'react'
 
+//custom component for a button to displayed, function is sent as prop
 const CustomButton = ({ btnType, title, handleClick, styles }) => {
   return (
     <button
