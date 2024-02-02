@@ -1,5 +1,5 @@
 # Crowdfunding DeFi App
-
+Crowdfunding
 This web application is a crowdfunding decentralized finance (DeFi) platform built using Thirdweb and React. It allows users to create and contribute to crowdfunding campaigns using cryptocurrency.
 
 ## Features
